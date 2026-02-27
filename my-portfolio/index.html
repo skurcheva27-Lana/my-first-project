@@ -1262,6 +1262,164 @@
       transition: width 0.55s 0.35s cubic-bezier(0.16,1,0.3,1);
     }
     .reveal.visible .section-title-bar { width: 52px; }
+
+    /* =====================================================
+       BACK TO TOP
+    ===================================================== */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: var(--gradient);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #fff;
+      box-shadow: 0 4px 22px rgba(124,111,255,0.55);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s;
+      z-index: 60;
+      pointer-events: none;
+    }
+    .back-to-top.show {
+      opacity: 1; transform: translateY(0); pointer-events: auto;
+    }
+    .back-to-top:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 36px rgba(124,111,255,0.7);
+    }
+    @media (max-width: 860px) {
+      .back-to-top { bottom: 80px; right: 16px; }
+    }
+
+    /* =====================================================
+       BURGER ANIMATION → X
+    ===================================================== */
+    .burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* =====================================================
+       COUNTERS SECTION
+    ===================================================== */
+    .counters-section {
+      position: relative; z-index: 1;
+      padding: 72px 0;
+      background: linear-gradient(135deg, rgba(124,111,255,0.06) 0%, rgba(255,107,138,0.04) 100%);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .counters-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+    .counter-item { position: relative; }
+    .counter-item + .counter-item::before {
+      content: '';
+      position: absolute; left: 0; top: 50%;
+      transform: translateY(-50%);
+      height: 60%; width: 1px;
+      background: var(--card-border);
+    }
+    .counter-num {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .counter-label {
+      font-size: 0.88rem;
+      color: var(--text-2);
+      line-height: 1.45;
+    }
+    .counter-sub {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      font-family: 'Courier New', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+    @media (max-width: 860px) {
+      .counters-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; }
+      .counter-item + .counter-item::before { display: none; }
+    }
+    @media (max-width: 480px) {
+      .counters-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* =====================================================
+       FORM SUCCESS (улучшенная)
+    ===================================================== */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 44px 20px;
+    }
+    .success-icon-wrap {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: rgba(95,255,175,0.12);
+      border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 22px;
+      animation: suc-pop 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes suc-pop {
+      from { transform: scale(0) rotate(-180deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+    }
+    .success-svg {
+      width: 36px; height: 36px;
+      stroke: var(--green); stroke-width: 2.5;
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .success-svg .check-path {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: draw-check 0.5s 0.35s ease forwards;
+    }
+    @keyframes draw-check {
+      to { stroke-dashoffset: 0; }
+    }
+    .success-title {
+      font-size: 1.35rem; font-weight: 700;
+      color: var(--green); margin-bottom: 10px;
+      animation: suc-fadeup 0.5s 0.25s ease both;
+    }
+    .success-text {
+      color: var(--text-2); font-size: 0.95rem; line-height: 1.72;
+      animation: suc-fadeup 0.5s 0.38s ease both;
+    }
+    .success-dots {
+      display: flex; gap: 6px; justify-content: center;
+      margin-top: 20px;
+      animation: suc-fadeup 0.5s 0.5s ease both;
+    }
+    .success-dots span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green); opacity: 0.3;
+      animation: dot-bounce 1.2s ease-in-out infinite;
+    }
+    .success-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .success-dots span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes dot-bounce {
+      0%,80%,100% { transform: scale(1); opacity: 0.3; }
+      40%          { transform: scale(1.4); opacity: 1; }
+    }
+    @keyframes suc-fadeup {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -1403,6 +1561,34 @@
         <div class="mq-item">Автоматизация<span class="mq-dot"></span></div>
         <div class="mq-item">Supabase<span class="mq-dot"></span></div>
         <div class="mq-item">API-интеграции<span class="mq-dot"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Counters ─────────────────────────────────────── -->
+  <div class="counters-section">
+    <div class="container">
+      <div class="counters-grid">
+        <div class="counter-item reveal">
+          <span class="counter-num" data-target="15" data-suffix="+">0+</span>
+          <div class="counter-label">проектов запущено</div>
+          <div class="counter-sub">и в работе</div>
+        </div>
+        <div class="counter-item reveal d1">
+          <span class="counter-num" data-target="5" data-suffix=" дн">0 дн</span>
+          <div class="counter-label">средний срок</div>
+          <div class="counter-sub">от задачи до результата</div>
+        </div>
+        <div class="counter-item reveal d2">
+          <span class="counter-num" data-target="100" data-suffix="%">0%</span>
+          <div class="counter-label">проектов сдано</div>
+          <div class="counter-sub">в оговорённый срок</div>
+        </div>
+        <div class="counter-item reveal d3">
+          <span class="counter-num" data-target="2" data-suffix=" ч">0 ч</span>
+          <div class="counter-label">время ответа</div>
+          <div class="counter-sub">в рабочее время</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1772,7 +1958,14 @@
             <button type="submit" class="form-submit">Отправить →</button>
           </form>
           <div class="form-success" id="fSuccess">
-            ✓ Получила! Отвечу сегодня — обычно в течение 2 часов.
+            <div class="success-icon-wrap">
+              <svg class="success-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path class="check-path" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div class="success-title">Отлично, получила!</div>
+            <div class="success-text">Отвечу сегодня — обычно в течение 2 часов.<br>Проверьте Telegram или email.</div>
+            <div class="success-dots"><span></span><span></span><span></span></div>
           </div>
 
           <div class="divider">или напишите напрямую</div>
@@ -1820,6 +2013,9 @@
 
   <!-- ── Floating CTA ────────────────────────────────────── -->
   <a href="#contact" class="float-cta" id="floatCta">Обсудить проект →</a>
+
+  <!-- ── Back to Top ──────────────────────────────────────── -->
+  <button class="back-to-top" id="backToTop" aria-label="Вернуться наверх">↑</button>
 
   <!-- ══════════════════════════════════════════════════════
        JAVASCRIPT
@@ -1873,8 +2069,16 @@
     const mob = document.getElementById('mob');
     const burger = document.getElementById('burger');
     const mobClose = document.getElementById('mobClose');
-    const openMob = () => { mob.classList.add('open'); document.body.style.overflow = 'hidden'; };
-    const closeMob = () => { mob.classList.remove('open'); document.body.style.overflow = ''; };
+    const openMob = () => {
+      mob.classList.add('open');
+      burger.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeMob = () => {
+      mob.classList.remove('open');
+      burger.classList.remove('active');
+      document.body.style.overflow = '';
+    };
     burger.addEventListener('click', openMob);
     mobClose.addEventListener('click', closeMob);
     document.querySelectorAll('.mob-l').forEach(l => l.addEventListener('click', closeMob));
@@ -1924,6 +2128,15 @@
       const show = window.scrollY > 400;
       if (show !== floatShown) { floatCta.classList.toggle('show', show); floatShown = show; }
     }, { passive: true });
+
+    /* ── Back to top ────────────────────────────────────── */
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('show', window.scrollY > 350);
+    }, { passive: true });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     /* ── Custom cursor (desktop / fine pointer) ────────── */
     if (window.matchMedia('(pointer:fine)').matches) {
@@ -1996,7 +2209,17 @@
       }, { passive: true });
     }
 
-    /* ── Counter animation for stat numbers ────────────── */
+    /* ── Counter animation (stat-num + counter-num) ─────── */
+    function animateCounter(el, target, suffix, dur) {
+      const t0 = performance.now();
+      const tick = now => {
+        const p = Math.min((now - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
     document.querySelectorAll('.stat-num').forEach(el => {
       const raw = el.textContent.trim();
       const match = raw.match(/^(\d+)/);
@@ -2007,16 +2230,21 @@
       const obs = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting && !started) {
           started = true; obs.disconnect();
-          const dur = 1500, t0 = performance.now();
-          const tick = now => {
-            const p = Math.min((now - t0) / dur, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            el.textContent = Math.round(eased * target) + suffix;
-            if (p < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
+          animateCounter(el, target, suffix, 1500);
         }
       }, { threshold: 0.6 });
+      obs.observe(el);
+    });
+    document.querySelectorAll('.counter-num').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      let started = false;
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && !started) {
+          started = true; obs.disconnect();
+          animateCounter(el, target, suffix, 1800);
+        }
+      }, { threshold: 0.5 });
       obs.observe(el);
     });
 
