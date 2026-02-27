@@ -1162,6 +1162,106 @@
       .cta-form { padding: 24px 20px; }
       .section-pad, .section-pad-alt { padding: 72px 0; }
     }
+
+    /* =====================================================
+       PHOTO
+    ===================================================== */
+    .avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+    }
+    .about-photo-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 10%;
+      display: block;
+    }
+
+    /* =====================================================
+       HERO AMBIENT GLOW (animated gradient)
+    ===================================================== */
+    .hero-glow {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 75% 90% at 68% 38%, rgba(124,111,255,0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 65% at 18% 72%, rgba(255,107,138,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 50% at 85% 80%, rgba(124,92,252,0.08) 0%, transparent 60%);
+      animation: hero-glow-shift 14s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    @keyframes hero-glow-shift {
+      0%   { opacity: 0.5; transform: scale(1); }
+      100% { opacity: 1;   transform: scale(1.08); }
+    }
+    .hero .container { position: relative; z-index: 1; }
+
+    /* =====================================================
+       PARALLAX LAYERS
+    ===================================================== */
+    .px-layer {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none;
+      will-change: transform;
+      z-index: 0;
+    }
+    .px-1 {
+      width: 560px; height: 560px; top: -80px; left: -80px;
+      background: radial-gradient(ellipse, rgba(124,111,255,0.17) 0%, transparent 70%);
+    }
+    .px-2 {
+      width: 440px; height: 440px; bottom: -60px; right: -60px;
+      background: radial-gradient(ellipse, rgba(255,107,138,0.11) 0%, transparent 70%);
+    }
+
+    /* =====================================================
+       SHIMMER HOVER FX
+    ===================================================== */
+    .shimmer-fx {
+      position: absolute; top: 0; left: -100%;
+      width: 55%; height: 100%;
+      background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(255,255,255,0.07) 50%,
+        transparent 80%
+      );
+      transform: skewX(-15deg);
+      pointer-events: none; z-index: 3;
+      animation: shimmer-slide 0.72s ease-out forwards;
+    }
+    @keyframes shimmer-slide {
+      from { left: -100%; }
+      to   { left: 165%; }
+    }
+
+    /* =====================================================
+       AVATAR PHOTO GLOW RING
+    ===================================================== */
+    .avatar-ring {
+      position: absolute; inset: -3px;
+      border-radius: 31px;
+      background: var(--gradient);
+      z-index: 0; opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .avatar-wrap:hover .avatar-ring { opacity: 0.5; }
+
+    /* =====================================================
+       SECTION TITLE ANIMATED UNDERLINE
+    ===================================================== */
+    .section-title-bar {
+      display: block;
+      width: 0; height: 3px;
+      background: var(--gradient);
+      border-radius: 2px;
+      margin-top: 10px;
+      transition: width 0.55s 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible .section-title-bar { width: 52px; }
   </style>
 </head>
 <body>
@@ -1214,6 +1314,9 @@
        01. HERO
   ══════════════════════════════════════════════════════ -->
   <section class="hero" id="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="px-layer px-1" aria-hidden="true"></div>
+    <div class="px-layer px-2" aria-hidden="true"></div>
     <div class="container">
       <div class="hero-grid">
 
@@ -1244,8 +1347,9 @@
         <div class="hero-visual">
           <div class="avatar-wrap h-anim" style="animation-delay:.12s">
             <div class="avatar-glow"></div>
+            <div class="avatar-ring"></div>
             <div class="avatar">
-              <span class="avatar-mono">СК</span>
+              <img src="photo.jpg" alt="Светлана Курчева">
             </div>
           </div>
           <div class="hero-stats h-anim" style="animation-delay:.5s">
@@ -1310,7 +1414,7 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="section-tag">// 03 — Портфолио</span>
-        <h2 class="section-title">Проекты</h2>
+        <h2 class="section-title">Проекты<span class="section-title-bar"></span></h2>
         <p class="section-sub">Задача → решение → результат в цифрах</p>
       </div>
       <div class="cases-grid">
@@ -1386,7 +1490,7 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="section-tag">// 04 — Услуги</span>
-        <h2 class="section-title">Чем могу помочь</h2>
+        <h2 class="section-title">Чем могу помочь<span class="section-title-bar"></span></h2>
         <p class="section-sub">4 направления — от идеи до запуска</p>
       </div>
       <div class="services-grid">
@@ -1507,7 +1611,7 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="section-tag">// 06 — Процесс</span>
-        <h2 class="section-title">Как мы работаем</h2>
+        <h2 class="section-title">Как мы работаем<span class="section-title-bar"></span></h2>
         <p class="section-sub">4 шага от запроса до запуска</p>
       </div>
       <div class="process-steps">
@@ -1557,15 +1661,14 @@
 
         <div class="about-photo-wrap reveal">
           <div class="about-photo-frame">
-            <div class="about-photo-emoji">👩‍💻</div>
-            <div class="about-photo-hint">// ваше фото</div>
-            <div class="about-badge">⚡</div>
+            <img src="photo.jpg" alt="Светлана Курчева" class="about-photo-img">
           </div>
+          <div class="about-badge">⚡</div>
         </div>
 
         <div class="about-text">
           <span class="section-tag reveal">// 07 — О себе</span>
-          <h2 class="section-title reveal">Кто за этим стоит</h2>
+          <h2 class="section-title reveal">Кто за этим стоит<span class="section-title-bar"></span></h2>
           <p class="reveal d1">
             Я Светлана — <strong>AI Builder и основатель WebApp Studio</strong>. Создаю сайты, приложения и AI-инструменты для малого и среднего бизнеса.
           </p>
@@ -1868,7 +1971,7 @@
     document.head.appendChild(rplStyle);
 
     /* ── Card tilt on hover ────────────────────────────── */
-    document.querySelectorAll('.case-card').forEach(card => {
+    document.querySelectorAll('.case-card, .svc-card').forEach(card => {
       card.style.transformStyle = 'preserve-3d';
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
@@ -1880,6 +1983,51 @@
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
         card.style.transition = 'transform .5s cubic-bezier(.23,1,.32,1)';
+      });
+    });
+
+    /* ── Parallax background layers ────────────────────── */
+    const pxLayers = document.querySelectorAll('.px-layer');
+    if (pxLayers.length) {
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (pxLayers[0]) pxLayers[0].style.transform = `translateY(${y * 0.28}px)`;
+        if (pxLayers[1]) pxLayers[1].style.transform = `translateY(${-y * 0.18}px)`;
+      }, { passive: true });
+    }
+
+    /* ── Counter animation for stat numbers ────────────── */
+    document.querySelectorAll('.stat-num').forEach(el => {
+      const raw = el.textContent.trim();
+      const match = raw.match(/^(\d+)/);
+      if (!match) return;
+      const target = parseInt(match[1]);
+      const suffix = raw.slice(match[0].length);
+      let started = false;
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && !started) {
+          started = true; obs.disconnect();
+          const dur = 1500, t0 = performance.now();
+          const tick = now => {
+            const p = Math.min((now - t0) / dur, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(eased * target) + suffix;
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+      }, { threshold: 0.6 });
+      obs.observe(el);
+    });
+
+    /* ── Shimmer on card hover ──────────────────────────── */
+    document.querySelectorAll('.case-card, .svc-card, .foryou-card').forEach(card => {
+      card.style.overflow = 'hidden';
+      card.addEventListener('mouseenter', () => {
+        const s = document.createElement('span');
+        s.className = 'shimmer-fx';
+        card.appendChild(s);
+        s.addEventListener('animationend', () => s.remove(), { once: true });
       });
     });
   </script>
